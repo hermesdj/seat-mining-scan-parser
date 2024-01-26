@@ -1,5 +1,8 @@
 <div class="card">
     <div class="card-body">
+        <h5 class="card-title">
+            {{trans('scan-parser::common.result.title')}}
+        </h5>
         <table id="parse-result" class="table">
             <thead>
             <tr>
@@ -39,3 +42,30 @@
         </table>
     </div>
 </div>
+@if(count($unparsed) > 0)
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">
+                {{trans('scan-parser::common.unparsed.title')}}
+            </h5>
+            <table id="parse-result" class="table">
+                <thead>
+                <tr>
+                    <th>{{trans('scan-parser::common.columns.name')}}</th>
+                    <th>{{trans('scan-parser::common.columns.amount')}}</th>
+                    <th>{{trans('scan-parser::common.columns.volume')}}</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach($unparsed as $row)
+                    <tr>
+                        <td><b>{{$row['name']}}</b></td>
+                        <td>{{number_format($row['amount'], 0, ',', ' ')}}</td>
+                        <td>{{number_format($row['volume'], 2, ',', ' ')}} m3</td>
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
+@endif

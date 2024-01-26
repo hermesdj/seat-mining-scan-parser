@@ -40,20 +40,35 @@ class MiningScanParserController extends Controller
             PriceProviderSystem::getPrices($request->get('price_provider'), $result->items);
         }
 
-        if($result === null) {
+        if ($result === null) {
             return redirect()->back()
-                ->with('error', trans('scan-parser::parse_error'));
+                ->with('error', trans('scan-parser::common.parse_error'));
         }
 
-        $formatted = $this->formatResult($result->items);
-
-        logger()->debug(print_r($formatted, true));
-
         return view('scan-parser::parser-result', [
-            'result' => $formatted,
+            'result' => $this->formatResult($result->items),
             'items' => $items,
+            'unparsed' => $this->formatUnparsedResult($result->unparsed),
             'price_provider' => $request->get('price_provider')
         ]);
+    }
+
+    private function formatUnparsedResult($items): Collection
+    {
+        $parsedItems = [];
+
+        foreach ($items as $item) {
+            if (isset($parsedItems[$item['name']])) {
+                $parsedItems[$item['name']]['amount'] += $item['amount'];
+                $parsedItems[$item['name']]['volume'] += $item['volume'] * $item['amount'];
+            } else {
+                $parsedItems[$item['name']]['name'] = $item['name'];
+                $parsedItems[$item['name']]['amount'] = $item['amount'];
+                $parsedItems[$item['name']]['volume'] = $item['volume'] * $item['amount'];
+            }
+        }
+
+        return collect($parsedItems)->sortBy('name');
     }
 
     private function formatResult(Collection $itemData): Collection

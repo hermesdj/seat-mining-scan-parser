@@ -7,6 +7,9 @@ return [
     'result' => [
         'title' => 'Résultat du Scan'
     ],
+    'unparsed' => [
+        'title' => 'Résultat partiel'
+    ],
     'form' => [
         'input' => 'Saisie du Scan de Eve',
         'parse' => 'Analyse',

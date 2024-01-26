@@ -7,6 +7,9 @@ return [
     'result' => [
         'title' => 'Belt Scan Result'
     ],
+    'unparsed' => [
+        'title' => 'Partial Result'
+    ],
     'form' => [
         'input' => 'Input from Eve Scan',
         'parse' => 'Parse',
