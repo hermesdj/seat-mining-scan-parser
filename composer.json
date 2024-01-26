@@ -1,0 +1,32 @@
+{
+  "name": "hermesdj/seat-mining-scan-parser",
+  "description": "A simple tool to parse mining scan and evaluate the value of a belt",
+  "license": "GPL-3.0",
+  "type": "seat-plugin",
+  "authors": [
+    {
+      "name": "Jay's",
+      "email": "jays.gaming.contact@gmail.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "HermesDj\\Seat\\SeatMiningScanParser\\": "src/"
+    }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "require": {
+    "recursivetree/seat-prices-core": "^1",
+    "recursivetree/seat-treelib": "^2.0",
+    "eveseat/eveapi": "^5",
+    "eveseat/web": "^5"
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "HermesDj\\Seat\\SeatMiningScanParser\\SeatMiningScanServiceProvider"
+      ]
+    }
+  }
+}
