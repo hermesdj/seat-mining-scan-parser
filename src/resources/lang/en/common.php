@@ -25,5 +25,6 @@ return [
         'value' => 'Value',
         'total' => 'Total'
     ],
-    'parse_error' => 'Parse Error: no results where returned from the Parser. Please check your input.'
+    'parse_error' => 'Parse Error: no results where returned from the Parser. Please check your input.',
+    'compressed' => 'Comp.'
 ];

@@ -33,7 +33,6 @@ class MineralScanParser extends Parser
 
         foreach ($lines as $line) {
             if ($line->match === null) {
-                logger()->warning("No match line " . print_r($line, true));
                 continue;
             }
 
@@ -60,7 +59,6 @@ class MineralScanParser extends Parser
                     'volume' => $volume,
                     'distance' => $distance
                 ];
-                logger()->warning("Ignored line " . print_r($line, true));
                 continue;
             }
 

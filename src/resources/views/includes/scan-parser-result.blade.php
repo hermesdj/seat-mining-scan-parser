@@ -27,18 +27,34 @@
                 </tr>
             @endforeach
             </tbody>
-            @if($price_provider !== null)
-                <tfoot>
-                <tr>
-                    <th colspan="5" class="text-right">{{trans('scan-parser::common.columns.total')}}</th>
-                    <th colspan="1" class="text-right">
-                        {{number_format($result->reduce(function($carry, $item) {
-                         return $carry + $item['total'];
-                        }), 2, ',', ' ')}} ISK
+            <tfoot>
+            @php
+                $totalVolume = $result->reduce(function($carry, $item) {
+                 return $carry + $item['volume'];
+                });
+                $totalValue = $result->reduce(function($carry, $item) {
+                 return $carry + $item['total'];
+                })
+            @endphp
+            <tr>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th>
+                    {{ number_format($totalVolume, 2, ',', ' ') }} m3 <br/>
+                    ({{number_format($totalVolume / 100, 2, ',', ' ')}} m3 {{trans('scan-parser::common.compressed')}})
+                </th>
+                @if($price_provider !== null)
+                    <th class="text-right">{{trans('scan-parser::common.columns.total')}}</th>
+                    <th class="text-right">
+                        {{number_format($totalValue, 2, ',', ' ')}} ISK
                     </th>
-                </tr>
-                </tfoot>
-            @endif
+                @else
+                    <th></th>
+                    <th></th>
+                @endif
+            </tr>
+            </tfoot>
         </table>
     </div>
 </div>
@@ -65,6 +81,21 @@
                     </tr>
                 @endforeach
                 </tbody>
+                <tfoot>
+                @php
+                    $totalVolumeUnparsed = $unparsed->reduce(function($carry, $item) {
+                     return $carry + $item['volume'];
+                    });
+                @endphp
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <th>{{number_format($totalVolumeUnparsed, 2, ',', ' ')}} m3 <br/>
+                        ({{number_format($totalVolumeUnparsed / 100, 2, ',', ' ')}}
+                        m3 {{trans('scan-parser::common.compressed')}})
+                    </th>
+                </tr>
+                </tfoot>
             </table>
         </div>
     </div>
