@@ -21,5 +21,6 @@ return [
         'volume' => 'Volume',
         'value' => 'Valeur',
         'total' => 'Total'
-    ]
+    ],
+    'parse_error' => 'Erreur d\'analyse, aucune ligne n\'a pu être lue, veuillez vérifier la validité de votre saisie.'
 ];

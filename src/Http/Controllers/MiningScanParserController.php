@@ -36,8 +36,13 @@ class MiningScanParserController extends Controller
 
         $result = MineralScanParser::parse($items, PriceableEveItem::class);
 
-        if ($request->get('price_provider') !== null) {
+        if ($result !== null && $request->get('price_provider') !== null) {
             PriceProviderSystem::getPrices($request->get('price_provider'), $result->items);
+        }
+
+        if($result === null) {
+            return redirect()->back()
+                ->with('error', trans('scan-parser::parse_error'));
         }
 
         $formatted = $this->formatResult($result->items);
