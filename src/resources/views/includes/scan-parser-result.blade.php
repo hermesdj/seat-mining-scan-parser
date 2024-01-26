@@ -7,6 +7,8 @@
                 <th>{{trans('scan-parser::common.columns.group')}}</th>
                 <th>{{trans('scan-parser::common.columns.amount')}}</th>
                 <th>{{trans('scan-parser::common.columns.volume')}}</th>
+                <th>{{trans('scan-parser::common.columns.value')}}</th>
+                <th class="text-right">{{trans('scan-parser::common.columns.total')}}</th>
             </tr>
             </thead>
             <tbody>
@@ -17,9 +19,23 @@
                     <td>{{$row['marketGroupName']}}</td>
                     <td>{{number_format($row['typeQuantity'], 0, ',', ' ')}}</td>
                     <td>{{number_format($row['volume'], 2, ',', ' ')}} m3</td>
+                    <td>{{number_format($row['unit_price'], 2, ',', ' ')}} ISK</td>
+                    <td class="text-right">{{number_format($row['total'], 2, ',', ' ')}} ISK</td>
                 </tr>
             @endforeach
             </tbody>
+            @if($price_provider !== null)
+                <tfoot>
+                <tr>
+                    <th colspan="5" class="text-right">{{trans('scan-parser::common.columns.total')}}</th>
+                    <th colspan="1" class="text-right">
+                        {{number_format($result->reduce(function($carry, $item) {
+                         return $carry + $item['total'];
+                        }), 2, ',', ' ')}} ISK
+                    </th>
+                </tr>
+                </tfoot>
+            @endif
         </table>
     </div>
 </div>

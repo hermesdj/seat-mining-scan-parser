@@ -10,12 +10,16 @@ return [
     'form' => [
         'input' => 'Saisie du Scan de Eve',
         'parse' => 'Analyse',
-        'desc' => 'Copier/Coller après avoir sélectionné toutes les lignes du scan une fois que toutes les catégories ont été ouvertes.'
+        'desc' => 'Copier/Coller après avoir sélectionné toutes les lignes du scan une fois que toutes les catégories ont été ouvertes.',
+        'price_provider' => 'Fournisseur de prix',
+        'price_provider_desc' => 'Sélectionnez le fournisseur de prix pour évaluer la valeur de la ceinture'
     ],
     'columns' => [
         'name' => 'Nom',
         'group' => 'Type',
         'amount' => 'Quantité',
-        'volume' => 'Volume'
+        'volume' => 'Volume',
+        'value' => 'Valeur',
+        'total' => 'Total'
     ]
 ];

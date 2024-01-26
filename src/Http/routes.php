@@ -11,7 +11,7 @@ Route::group([
         ->name('scan-parser::parser')
         ->uses('MiningScanParserController@parser');
 
-    Route::post('/result')
+    Route::post('/')
         ->name('scan-parser::parse')
         ->uses('MiningScanParserController@parse');
 });

@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use RecursiveTree\Seat\PricesCore\Facades\PriceProviderSystem;
 use Seat\Web\Http\Controllers\Controller;
 
 class MiningScanParserController extends Controller
@@ -19,23 +20,34 @@ class MiningScanParserController extends Controller
     public function parser(Request $request): View|Factory|Application
     {
         return view('scan-parser::parser', [
-            'items' => ''
+            'items' => '',
+            'price_provider' => null
         ]);
     }
 
     public function parse(Request $request): View|Factory|Application|RedirectResponse
     {
         $request->validate([
-            'items' => 'required'
+            'items' => 'required',
+            'price_provider' => 'numeric'
         ]);
 
         $items = $request->get('items');
 
         $result = MineralScanParser::parse($items, PriceableEveItem::class);
 
+        if ($request->get('price_provider') !== null) {
+            PriceProviderSystem::getPrices($request->get('price_provider'), $result->items);
+        }
+
+        $formatted = $this->formatResult($result->items);
+
+        logger()->debug(print_r($formatted, true));
+
         return view('scan-parser::parser-result', [
-            'result' => $this->formatResult($result->items),
-            'items' => $items
+            'result' => $formatted,
+            'items' => $items,
+            'price_provider' => $request->get('price_provider')
         ]);
     }
 
@@ -47,6 +59,7 @@ class MiningScanParserController extends Controller
             if (isset($parsedItems[$item->getTypeID()])) {
                 $parsedItems[$item->getTypeID()]['typeQuantity'] += $item->amount;
                 $parsedItems[$item->getTypeID()]['volume'] += $item->volume * $item->amount;
+                $parsedItems[$item->getTypeID()]['total'] += $item->amount * $item->price;
             } else {
                 $result = DB::table('invTypes as it')
                     ->join('invGroups as ig', 'it.groupID', '=', 'ig.GroupID')
@@ -72,6 +85,8 @@ class MiningScanParserController extends Controller
                 $parsedItems[$item->getTypeID()]["groupId"] = $item->typeModel->groupID;
                 $parsedItems[$item->getTypeID()]["marketGroupName"] = $result->groupName;
                 $parsedItems[$item->getTypeID()]["volume"] = $result->volume * $item->amount;
+                $parsedItems[$item->getTypeID()]["unit_price"] = $item->price;
+                $parsedItems[$item->getTypeID()]["total"] = $item->price * $item->amount;
             }
         }
 
