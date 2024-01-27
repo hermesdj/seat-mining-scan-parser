@@ -21,9 +21,9 @@ return [
         'name' => 'Name',
         'group' => 'Type',
         'amount' => 'Amount',
-        'volume' => 'Volume',
-        'value' => 'Value',
-        'total' => 'Total'
+        'volume' => 'Volume (m3)',
+        'value' => 'Value (ISK)',
+        'total' => 'Total (ISK)'
     ],
     'parse_error' => 'Parse Error: no results where returned from the Parser. Please check your input.',
     'compressed' => 'Comp.'

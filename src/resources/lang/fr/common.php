@@ -21,9 +21,9 @@ return [
         'name' => 'Nom',
         'group' => 'Type',
         'amount' => 'Quantité',
-        'volume' => 'Volume',
-        'value' => 'Valeur',
-        'total' => 'Total'
+        'volume' => 'Volume (m3)',
+        'value' => 'Valeur (ISK)',
+        'total' => 'Total (ISK)'
     ],
     'parse_error' => 'Erreur d\'analyse, aucune ligne n\'a pu être lue, veuillez vérifier la validité de votre saisie.',
     'compressed' => 'Comp.'

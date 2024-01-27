@@ -21,9 +21,9 @@
                         <b>{{$row['typeName']}}</b></td>
                     <td>{{$row['marketGroupName']}}</td>
                     <td>{{number_format($row['typeQuantity'], 0, ',', ' ')}}</td>
-                    <td>{{number_format($row['volume'], 2, ',', ' ')}} m3</td>
-                    <td>{{number_format($row['unit_price'], 2, ',', ' ')}} ISK</td>
-                    <td class="text-right">{{number_format($row['total'], 2, ',', ' ')}} ISK</td>
+                    <td>{{number_format($row['volume'], 2, ',', ' ')}}</td>
+                    <td>{{number_format($row['unit_price'], 2, ',', ' ')}}</td>
+                    <td class="text-right">{{number_format($row['total'], 2, ',', ' ')}}</td>
                 </tr>
             @endforeach
             </tbody>
@@ -77,7 +77,7 @@
                     <tr>
                         <td><b>{{$row['name']}}</b></td>
                         <td>{{number_format($row['amount'], 0, ',', ' ')}}</td>
-                        <td>{{number_format($row['volume'], 2, ',', ' ')}} m3</td>
+                        <td>{{number_format($row['volume'], 2, ',', ' ')}}</td>
                     </tr>
                 @endforeach
                 </tbody>
