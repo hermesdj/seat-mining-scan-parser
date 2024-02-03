@@ -31,11 +31,13 @@ class SeatMiningScanServiceProvider extends AbstractSeatPlugin
 
     private function add_publications(): void
     {
+        /*
         $this->publishes([
             __DIR__ . '/resources/css' => public_path('web/css'),
             __DIR__ . '/resources/img' => public_path('web/img'),
             __DIR__ . '/resources/js' => public_path('web/js'),
         ], ['public', 'seat']);
+        */
     }
 
     private function add_translations(): void
